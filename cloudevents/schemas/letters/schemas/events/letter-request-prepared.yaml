@@ -1,0 +1,23 @@
+type: "object"
+title: Letter Request Prepared Event
+properties:
+  data:
+    $ref: "../domain/letter-request.json"
+  dataschema:
+    pattern: "^https:\\/\\/notify\\.nhs\\.uk\\/events\\/core\\/letter-request-prepared\\/1.\\d+\\.\\d+\\.json$"
+    type: "string"
+  dataschemaversion:
+    pattern: "^1\\.\\d+\\.\\d+$"
+    type: "string"
+  plane:
+    const: "control"
+    type: "string"
+  type:
+    const: "uk.nhs.notify.core.letter-request-prepared.v1"
+    type: "string"
+required:
+  - "data"
+  - "dataschema"
+  - "dataschemaversion"
+  - "type"
+  - "plane"

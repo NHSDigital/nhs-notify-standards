@@ -1,0 +1,76 @@
+{
+  "properties": {
+    "clientId": {
+      "description": "Identifier for the client which this letter is being sent on behalf of",
+      "title": "Client ID",
+      "type": "string"
+    },
+    "createdAt": {
+      "description": "Timestamp when the letter PDF was created",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+      "title": "Created At",
+      "type": "string"
+    },
+    "id": {
+      "description": "Unique identifier for the LetterRequest",
+      "title": "LetterRequest ID",
+      "type": "string"
+    },
+    "pageCount": {
+      "description": "Number of pages in the PDF document",
+      "title": "Page Count",
+      "type": "number"
+    },
+    "requestId": {
+      "description": "Identifier for the request which this letter request is part of",
+      "title": "Request ID",
+      "type": "string"
+    },
+    "requestItemId": {
+      "description": "Identifier for the request item which this letter request is part of",
+      "title": "Request Item ID",
+      "type": "string"
+    },
+    "requestItemPlanId": {
+      "description": "Identifier for the request item plan which associated with this letter request",
+      "title": "Request Item Plan ID",
+      "type": "string"
+    },
+    "s3Url": {
+      "description": "Unsigned S3 URL where the generated PDF can be retrieved. It will be signed for access on retrieval",
+      "format": "uri",
+      "title": "S3 URL",
+      "type": "string"
+    },
+    "sha256Hash": {
+      "description": "SHA-256 checksum of the PDF file",
+      "title": "SHA-256 Hash",
+      "type": "string"
+    },
+    "specificationId": {
+      "description": "Reference to the letter specification which should be used to produce a letter pack for this request",
+      "title": "Specification ID",
+      "type": "string"
+    },
+    "supplierId": {
+      "description": "Identifier for the supplier which should print and post the letter",
+      "title": "Supplier ID",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "clientId",
+    "specificationId",
+    "requestId",
+    "requestItemId",
+    "requestItemPlanId",
+    "supplierId",
+    "s3Url",
+    "sha256Hash",
+    "createdAt",
+    "pageCount"
+  ],
+  "type": "object"
+}

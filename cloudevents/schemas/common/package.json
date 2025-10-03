@@ -1,0 +1,37 @@
+{
+  "author": "",
+  "dependencies": {
+    "zod": "^4.1.11"
+  },
+  "description": "Schemas for NHS Notify common data types",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22.13.4",
+    "jest": "^30.1.3",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "main": "src/index.ts",
+  "name": "@nhsdigital/nhs-notify-event-schemas-common",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": "git@github.com:NHSDigital/nhs-notify-standards.git",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "gen:jsonschema": "ts-node src/cli/generate-json.ts",
+    "lint": "npm run lint:node && npm run lint:schema",
+    "lint:fix": "eslint . --fix",
+    "lint:node": "eslint .",
+    "lint:schema": "echo no schema linting implemented",
+    "prebuild": "rm -rf dist && npm run gen:asyncapi",
+    "pregen:jsonschema": "rm -rf ./schemas/json",
+    "prelint:schema": "npm run gen:jsonschema",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "test:unit": "jest"
+  },
+  "version": "1.0.0"
+}
