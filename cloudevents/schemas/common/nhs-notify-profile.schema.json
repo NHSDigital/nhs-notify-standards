@@ -1,0 +1,512 @@
+{
+  "$comment": "CloudEvents allows arbitrary extension attributes. NHS profile: time (occurred-at) is mandatory though optional in CloudEvents spec.",
+  "$id": "https://notify.nhs.uk/schema/events/nhs-notify-profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "source": {
+            "pattern": "^/data-plane"
+          }
+        },
+        "required": [
+          "source"
+        ]
+      },
+      "then": {
+        "properties": {
+          "subject": {
+            "$comment": "When source is /data-plane..., subject must start with customer/{uuid} and may have further segments which are either lowercase tokens or UUIDs.",
+            "description": "Subject path for data-plane events: customer/{uuid}[/...].",
+            "pattern": "^customer/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}(?:/(?:[a-z0-9-]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*$"
+          }
+        },
+        "required": [
+          "subject"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "severitytext": {
+            "const": "TRACE"
+          }
+        },
+        "required": [
+          "severitytext"
+        ]
+      },
+      "then": {
+        "properties": {
+          "severitynumber": {
+            "const": 0
+          }
+        },
+        "required": [
+          "severitynumber"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "severitytext": {
+            "const": "DEBUG"
+          }
+        },
+        "required": [
+          "severitytext"
+        ]
+      },
+      "then": {
+        "properties": {
+          "severitynumber": {
+            "const": 1
+          }
+        },
+        "required": [
+          "severitynumber"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "severitytext": {
+            "const": "INFO"
+          }
+        },
+        "required": [
+          "severitytext"
+        ]
+      },
+      "then": {
+        "properties": {
+          "severitynumber": {
+            "const": 2
+          }
+        },
+        "required": [
+          "severitynumber"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "severitytext": {
+            "const": "WARN"
+          }
+        },
+        "required": [
+          "severitytext"
+        ]
+      },
+      "then": {
+        "properties": {
+          "severitynumber": {
+            "const": 3
+          }
+        },
+        "required": [
+          "severitynumber"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "severitytext": {
+            "const": "ERROR"
+          }
+        },
+        "required": [
+          "severitytext"
+        ]
+      },
+      "then": {
+        "properties": {
+          "severitynumber": {
+            "const": 4
+          }
+        },
+        "required": [
+          "severitynumber"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "severitytext": {
+            "const": "FATAL"
+          }
+        },
+        "required": [
+          "severitytext"
+        ]
+      },
+      "then": {
+        "properties": {
+          "severitynumber": {
+            "const": 5
+          }
+        },
+        "required": [
+          "severitynumber"
+        ]
+      }
+    }
+  ],
+  "dependentRequired": {
+    "severitynumber": [
+      "severitytext"
+    ]
+  },
+  "description": "NHS Notify profile for CloudEvents 1.0 including additional governance and tracing attributes.",
+  "examples": [
+    {
+      "data": {
+        "notify-payload": {
+          "notify-data": {
+            "nhsNumber": "9434765919"
+          },
+          "notify-metadata": {
+            "notifyDomain": "Ordering",
+            "teamResponsible": "Team 1",
+            "version": "1.3.0"
+          }
+        }
+      },
+      "datacategory": "sensitive",
+      "dataclassification": "restricted",
+      "datacontenttype": "application/json",
+      "dataregulation": "ISO-27001",
+      "dataschema": "https://nhsdigital.github.io/nhs-notify-standards/cloudevents/nhs-notify-example-event-data.schema.json",
+      "id": "6f1c2a53-3d54-4a0a-9a0b-0e9ae2d4c111",
+      "partitionkey": "customer-920fca11",
+      "recordedtime": "2025-10-01T10:15:30.250Z",
+      "sampledrate": 5,
+      "sequence": "00000000000000000042",
+      "severitynumber": 1,
+      "severitytext": "DEBUG",
+      "source": "/data-plane/ordering",
+      "specversion": "1.0",
+      "subject": "customer/920fca11-596a-4eca-9c47-99f624614658/order/769acdd4-6a47-496f-999f-76a6fd2c3959/item/4f5e17c0-ec57-4cee-9a86-14580cf5af7d",
+      "time": "2025-10-01T10:15:30.000Z",
+      "traceparent": "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01",
+      "tracestate": "rojo=00f067aa0ba902b7,congo=t61rcWkgMzE",
+      "type": "uk.nhs.notify.ordering.order.read"
+    }
+  ],
+  "properties": {
+    "data": {
+      "$comment": "Domain payload (arbitrary JSON value).",
+      "type": "object"
+    },
+    "datacategory": {
+      "$comment": "Example: special-category (GDPR), phi (HIPAA).",
+      "description": "Data category classification (e.g. standard, special-category).",
+      "enum": [
+        "non-sensitive",
+        "standard",
+        "sensitive",
+        "special-category"
+      ],
+      "examples": [
+        "sensitive"
+      ],
+      "type": "string"
+    },
+    "dataclassification": {
+      "$comment": "Data classification e.g. public|internal|confidential|restricted.",
+      "description": "Data sensitivity classification.",
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ],
+      "examples": [
+        "restricted"
+      ],
+      "type": "string"
+    },
+    "datacontenttype": {
+      "$comment": "Usually application/json.",
+      "const": "application/json",
+      "description": "Media type for the data field (fixed to application/json).",
+      "examples": [
+        "application/json"
+      ],
+      "type": "string"
+    },
+    "dataregulation": {
+      "$comment": "Regulation tags e.g. GDPR, HIPAA.",
+      "description": "Regulatory regime tag applied to this data.",
+      "enum": [
+        "GDPR",
+        "HIPAA",
+        "PCI-DSS",
+        "ISO-27001",
+        "NIST-800-53",
+        "CCPA"
+      ],
+      "examples": [
+        "ISO-27001"
+      ],
+      "type": "string"
+    },
+    "dataschema": {
+      "$comment": "URI to event payload schema.",
+      "description": "URI of a schema that describes the event payload (notify-payload).",
+      "examples": [
+        "https://nhsdigital.github.io/nhs-notify-standards/cloudevents/nhs-notify-example-event-data.schema.json"
+      ],
+      "type": "string"
+    },
+    "id": {
+      "$comment": "Unique per (source,id). This should be a randomly generated guid that represents the id of the event itself.",
+      "description": "Unique identifier for this event instance (UUID).",
+      "examples": [
+        "6f1c2a53-3d54-4a0a-9a0b-0e9ae2d4c111"
+      ],
+      "format": "uuid",
+      "minLength": 1,
+      "type": "string"
+    },
+    "partitionkey": {
+      "$comment": "Non-empty partition key for scaling / causal grouping. Must be 1-64 characters, only lowercase letters, numbers, and hyphen.",
+      "description": "Partition / ordering key (lowercase alphanumerics and hyphen, 1-64 chars).",
+      "examples": [
+        "customer-920fca11"
+      ],
+      "maxLength": 64,
+      "minLength": 1,
+      "pattern": "^[a-z0-9-]+$",
+      "type": "string"
+    },
+    "recordedtime": {
+      "$comment": "Bitemporal created-at; should be >= time.",
+      "description": "Timestamp when the event was recorded/persisted (should be >= time).",
+      "examples": [
+        "2025-10-01T10:15:30.250Z"
+      ],
+      "format": "date-time",
+      "type": "string"
+    },
+    "sampledrate": {
+      "$comment": "Integer > 0 indicating how many similar occurrences this event represents.",
+      "description": "Sampling factor: number of similar occurrences this event represents.",
+      "examples": [
+        5
+      ],
+      "minimum": 1,
+      "type": "integer"
+    },
+    "sequence": {
+      "$comment": "Lexicographically comparable ordering string per source. Must be a string of exactly 20 digits, left-padded with zeros, representing a 64-bit unsigned integer.",
+      "description": "Zero-padded 20 digit numeric sequence (lexicographically sortable).",
+      "examples": [
+        "00000000000000000042"
+      ],
+      "pattern": "^\\d{20}$",
+      "type": "string"
+    },
+    "severitynumber": {
+      "$comment": "Numeric severity corresponding to severitytext (TRACE=0..FATAL=5).",
+      "description": "Numeric severity (TRACE=0, DEBUG=1, INFO=2, WARN=3, ERROR=4, FATAL=5).",
+      "examples": [
+        1
+      ],
+      "maximum": 5,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "severitytext": {
+      "$comment": "Severity text (TRACE, DEBUG, INFO, WARN, ERROR, FATAL, etc.).",
+      "description": "Log severity level name.",
+      "enum": [
+        "TRACE",
+        "DEBUG",
+        "INFO",
+        "WARN",
+        "ERROR",
+        "FATAL"
+      ],
+      "examples": [
+        "DEBUG"
+      ],
+      "type": "string"
+    },
+    "source": {
+      "$comment": "Must begin with '/data-plane' or '/control-plane'. Subsequent segments: lowercase alphanumeric or hyphen. No trailing '/'.",
+      "description": "Logical event producer path starting /data-plane or /control-plane followed by lowercase segments.",
+      "examples": [
+        "/data-plane/ordering",
+        "/control-plane/audit"
+      ],
+      "format": "uri-reference",
+      "minLength": 12,
+      "pattern": "^/(data-plane|control-plane)(?:/[a-z0-9-]+)*$",
+      "type": "string"
+    },
+    "specversion": {
+      "$comment": "CloudEvents version used. Core attributes: specversion,id,source,type (+ optional subject,time,datacontenttype,dataschema,data). Ref: CloudEvents core spec.",
+      "const": "1.0",
+      "description": "CloudEvents specification version (fixed to 1.0).",
+      "examples": [
+        "1.0"
+      ],
+      "type": "string"
+    },
+    "subject": {
+      "$comment": "URI path: must not start with '/', only lowercase alphanumeric and hyphen segments separated by '/', must not end with '/'.",
+      "description": "Resource path (no leading slash) within the source made of lowercase segments separated by '/'.",
+      "examples": [
+        "customer/920fca11-596a-4eca-9c47-99f624614658/order/769acdd4-6a47-496f-999f-76a6fd2c3959/item/4f5e17c0-ec57-4cee-9a86-14580cf5af7d"
+      ],
+      "format": "uri-reference",
+      "minLength": 5,
+      "pattern": "^(?:[a-z0-9-]+)(?:/[a-z0-9-]+)*$",
+      "type": "string"
+    },
+    "time": {
+      "$comment": "RFC3339 UTC occurred-at (REQUIRED in NHS profile).",
+      "description": "Timestamp when the event occurred (RFC 3339).",
+      "examples": [
+        "2025-10-01T10:15:30.000Z"
+      ],
+      "format": "date-time",
+      "type": "string"
+    },
+    "traceparent": {
+      "$comment": "W3C Trace Context traceparent (required when tracing used).",
+      "description": "W3C Trace Context traceparent header value.",
+      "examples": [
+        "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01"
+      ],
+      "minLength": 1,
+      "pattern": "^00-[0-9a-f]{32}-[0-9a-f]{16}-[0-9a-f]{2}$",
+      "type": "string"
+    },
+    "tracestate": {
+      "$comment": "W3C Trace Context tracestate (optional).",
+      "description": "Optional W3C Trace Context tracestate header value.",
+      "examples": [
+        "rojo=00f067aa0ba902b7,congo=t61rcWkgMzE"
+      ],
+      "type": "string"
+    },
+    "type": {
+      "$comment": "NHS naming: lower-dot namespaced; allowed chars a-z0-9 and dots; banned tokens: completed, finished, updated, changed, processed, handled, status, started, failed.",
+      "allOf": [
+        {
+          "$comment": "NHS naming: lower-dot namespaced; allowed chars a-z0-9 and dots.",
+          "description": "Event type (uk.nhs.notify.*) using reverse-DNS style; lowercase alphanumerics and dots only.",
+          "examples": [
+            "uk.nhs.notify.ordering.order.read"
+          ],
+          "name": "NHS Notify event type pattern",
+          "pattern": "^uk\\.nhs\\.notify\\.[a-z0-9]+(\\.[a-z0-9]+)*$",
+          "type": "string"
+        },
+        {
+          "description": "Disallow ambiguous past tense token 'completed'. Use a domain-specific verb like read, created, published.",
+          "name": "Disallow 'completed' token",
+          "not": {
+            "pattern": "(?:^|\\.)completed(?:\\.|$)"
+          },
+          "type": "string"
+        },
+        {
+          "description": "Disallow 'finished' which is temporal and ambiguous; choose a workflow-specific terminal verb.",
+          "name": "Disallow 'finished' token",
+          "not": {
+            "pattern": "(?:^|\\.)finished(?:\\.|$)"
+          },
+          "type": "string"
+        },
+        {
+          "description": "Disallow 'updated'; prefer a concrete action (e.g. order.modified.v1 -> order.change.applied).",
+          "name": "Disallow 'updated' token",
+          "not": {
+            "pattern": "(?:^|\\.)updated(?:\\.|$)"
+          },
+          "type": "string"
+        },
+        {
+          "description": "Disallow vague 'changed'; specify the nature of the change (e.g. status.changed -> status.transitioned).",
+          "name": "Disallow 'changed' token",
+          "not": {
+            "pattern": "(?:^|\\.)changed(?:\\.|$)"
+          },
+          "type": "string"
+        },
+        {
+          "description": "Disallow 'processed'; state WHAT happened, not that a process occurred.",
+          "name": "Disallow 'processed' token",
+          "not": {
+            "pattern": "(?:^|\\.)processed(?:\\.|$)"
+          },
+          "type": "string"
+        },
+        {
+          "description": "Disallow 'handled'; overly generic and not business meaningful.",
+          "name": "Disallow 'handled' token",
+          "not": {
+            "pattern": "(?:^|\\.)handled(?:\\.|$)"
+          },
+          "type": "string"
+        },
+        {
+          "description": "Disallow bare 'status'; event types should represent a domain occurrence, not a generic label.",
+          "name": "Disallow 'status' token",
+          "not": {
+            "pattern": "(?:^|\\.)status(?:\\.|$)"
+          },
+          "type": "string"
+        },
+        {
+          "description": "Disallow 'started'; prefer a specific lifecycle action (e.g. session.opened).",
+          "name": "Disallow 'started' token",
+          "not": {
+            "pattern": "(?:^|\\.)started(?:\\.|$)"
+          },
+          "type": "string"
+        },
+        {
+          "description": "Disallow 'failed'; model the concrete failure (e.g. payment.authorization.failed -> payment.authorization.rejected).",
+          "name": "Disallow 'failed' token",
+          "not": {
+            "pattern": "(?:^|\\.)failed(?:\\.|$)"
+          },
+          "type": "string"
+        }
+      ],
+      "description": "Event type (uk.nhs.notify.*) using reverse-DNS style; ambiguous verbs (completed, finished, updated, changed, processed, handled, status, started, failed) disallowed.",
+      "examples": [
+        "uk.nhs.notify.ordering.order.read"
+      ],
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "specversion",
+    "id",
+    "source",
+    "subject",
+    "type",
+    "time",
+    "recordedtime",
+    "severitynumber",
+    "traceparent",
+    "data"
+  ],
+  "title": "NHS Notify CloudEvents Profile",
+  "type": "object"
+}

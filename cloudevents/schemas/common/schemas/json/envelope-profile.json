@@ -1,0 +1,247 @@
+{
+  "properties": {
+    "data": {
+      "additionalProperties": {},
+      "description": "Container object wrapping the structured Notify payload.",
+      "examples": [
+        {
+          "notify-payload": {
+            "notify-data": {
+              "nhsNumber": "9434765919"
+            },
+            "notify-metadata": {
+              "notifyDomain": "Ordering",
+              "teamResponsible": "Team 1",
+              "version": "1.3.0"
+            }
+          }
+        }
+      ],
+      "title": "Event Data",
+      "type": "object"
+    },
+    "datacategory": {
+      "description": "Data category classification (e.g. standard, special-category).",
+      "enum": [
+        "non-sensitive",
+        "standard",
+        "sensitive",
+        "special-category"
+      ],
+      "examples": [
+        "sensitive"
+      ],
+      "title": "Data Category",
+      "type": "string"
+    },
+    "dataclassification": {
+      "description": "Data sensitivity classification.",
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ],
+      "examples": [
+        "restricted"
+      ],
+      "title": "Data Classification",
+      "type": "string"
+    },
+    "datacontenttype": {
+      "description": "Media type for the data field (fixed to application/json).",
+      "enum": [
+        "application/json"
+      ],
+      "examples": [
+        "application/json"
+      ],
+      "title": "Data Content Type",
+      "type": "string"
+    },
+    "dataregulation": {
+      "description": "Regulatory regime tag applied to this data.",
+      "enum": [
+        "GDPR",
+        "HIPAA",
+        "PCI-DSS",
+        "ISO-27001",
+        "NIST-800-53",
+        "CCPA"
+      ],
+      "examples": [
+        "ISO-27001"
+      ],
+      "title": "Data Regulation",
+      "type": "string"
+    },
+    "dataschema": {
+      "description": "URI of a schema that describes the event payload (notify-payload).",
+      "examples": [
+        "https://nhsdigital.github.io/nhs-notify-standards/cloudevents/nhs-notify-example-event-data.schema.json"
+      ],
+      "title": "Data Schema URI",
+      "type": "string"
+    },
+    "id": {
+      "description": "Unique identifier for this event instance (UUID).",
+      "examples": [
+        "6f1c2a53-3d54-4a0a-9a0b-0e9ae2d4c111"
+      ],
+      "format": "uuid",
+      "minLength": 1,
+      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+      "title": "Event ID",
+      "type": "string"
+    },
+    "partitionkey": {
+      "description": "Partition / ordering key (lowercase alphanumerics and hyphen, 1-64 chars).",
+      "examples": [
+        "customer-920fca11"
+      ],
+      "maxLength": 64,
+      "minLength": 1,
+      "pattern": "^[a-z0-9-]+$",
+      "title": "Partition Key",
+      "type": "string"
+    },
+    "recordedtime": {
+      "description": "Timestamp when the event was recorded/persisted (should be >= time).",
+      "examples": [
+        "2025-10-01T10:15:30.250Z"
+      ],
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+      "title": "Recorded Time",
+      "type": "string"
+    },
+    "sampledrate": {
+      "description": "Sampling factor: number of similar occurrences this event represents.",
+      "examples": [
+        5
+      ],
+      "maximum": 9007199254740991,
+      "minimum": 1,
+      "title": "Sampled Rate",
+      "type": "integer"
+    },
+    "sequence": {
+      "description": "Zero-padded 20 digit numeric sequence (lexicographically sortable).",
+      "examples": [
+        "00000000000000000042"
+      ],
+      "pattern": "^\\d{20}$",
+      "title": "Sequence",
+      "type": "string"
+    },
+    "severitynumber": {
+      "description": "Numeric severity (TRACE=0, DEBUG=1, INFO=2, WARN=3, ERROR=4, FATAL=5).",
+      "examples": [
+        1
+      ],
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Severity Number",
+      "type": "integer"
+    },
+    "severitytext": {
+      "description": "Log severity level name.",
+      "enum": [
+        "TRACE",
+        "DEBUG",
+        "INFO",
+        "WARN",
+        "ERROR",
+        "FATAL"
+      ],
+      "examples": [
+        "DEBUG"
+      ],
+      "title": "Severity Text",
+      "type": "string"
+    },
+    "source": {
+      "description": "Logical event producer path starting /data-plane or /control-plane followed by lowercase segments.",
+      "examples": [
+        "/data-plane/ordering",
+        "/control-plane/audit"
+      ],
+      "minLength": 12,
+      "pattern": "^\\/(data-plane|control-plane)(?:\\/[a-z0-9-]+)*$",
+      "title": "Event Source",
+      "type": "string"
+    },
+    "specversion": {
+      "description": "CloudEvents specification version (fixed to 1.0).",
+      "enum": [
+        "1.0"
+      ],
+      "examples": [
+        "1.0"
+      ],
+      "title": "CloudEvents spec version",
+      "type": "string"
+    },
+    "subject": {
+      "description": "Resource path (no leading slash) within the source made of lowercase segments separated by '/'.",
+      "examples": [
+        "customer/920fca11-596a-4eca-9c47-99f624614658/order/769acdd4-6a47-496f-999f-76a6fd2c3959/item/4f5e17c0-ec57-4cee-9a86-14580cf5af7d"
+      ],
+      "minLength": 5,
+      "pattern": "^[a-z0-9-]+(\\/[a-z0-9-]+)*$",
+      "title": "Event Subject",
+      "type": "string"
+    },
+    "time": {
+      "description": "Timestamp when the event occurred (RFC 3339).",
+      "examples": [
+        "2025-10-01T10:15:30.000Z"
+      ],
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+      "title": "Event Time",
+      "type": "string"
+    },
+    "traceparent": {
+      "description": "W3C Trace Context traceparent header value.",
+      "examples": [
+        "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01"
+      ],
+      "minLength": 1,
+      "pattern": "^00-[0-9a-f]{32}-[0-9a-f]{16}-[0-9a-f]{2}$",
+      "title": "Traceparent",
+      "type": "string"
+    },
+    "tracestate": {
+      "description": "Optional W3C Trace Context tracestate header value.",
+      "examples": [
+        "rojo=00f067aa0ba902b7,congo=t61rcWkgMzE"
+      ],
+      "title": "Tracestate",
+      "type": "string"
+    },
+    "type": {
+      "description": "Event type (uk.nhs.notify.*) using reverse-DNS style; ambiguous verbs (completed, finished, updated, changed, processed, handled, status, started, failed) disallowed.",
+      "examples": [
+        "uk.nhs.notify.ordering.order.read"
+      ],
+      "minLength": 1,
+      "pattern": "^(?!.*(?:^|\\.|\\/)(completed|finished|updated|changed|processed|handled|status|started|failed)(?:\\.|\\/|$))uk\\.nhs\\.notify\\.[a-z0-9]+(\\.[a-z0-9]+)*$",
+      "title": "Event Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "specversion",
+    "id",
+    "source",
+    "subject",
+    "type",
+    "time",
+    "data",
+    "traceparent",
+    "recordedtime",
+    "severitynumber"
+  ],
+  "type": "object"
+}
