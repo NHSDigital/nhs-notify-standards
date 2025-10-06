@@ -6,6 +6,10 @@ export const $LetterRequest = DomainBase('LetterRequest').extend({
     title: "Client ID",
     description: 'Identifier for the client which this letter is being sent on behalf of',
   }),
+  campaignId: z.string().meta({
+    title: "Campaign ID",
+    description: 'Identifier for the campaign which this letter is a part of',
+  }),
   specificationId: z.string().meta({
     title: "Specification ID",
     description: 'Reference to the letter specification which should be used to produce a letter pack for this request',
