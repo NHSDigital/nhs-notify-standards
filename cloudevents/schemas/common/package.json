@@ -27,7 +27,7 @@
     "lint:node": "eslint .",
     "lint:schema": "echo no schema linting implemented",
     "prebuild": "rm -rf dist && npm run gen:asyncapi",
-    "pregen:jsonschema": "rm -rf ./schemas/json",
+    "pregen:jsonschema": "rm -rf schemas/domain",
     "prelint:schema": "npm run gen:jsonschema",
     "start": "node dist/index.js",
     "test": "npm run test:unit",
