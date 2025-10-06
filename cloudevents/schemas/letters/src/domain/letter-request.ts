@@ -6,7 +6,7 @@ export const $LetterRequest = DomainBase("LetterRequest").extend({
     title: "Client ID",
     description:
       "Identifier for the client which this letter is being sent on behalf of",
-    examples: ["client-123", "nhs-client-001"],
+    examples: ["987e6543-21c0-4d5b-8f9a-abcdef123456", "123e4567-e89b-12d3-a456-426614174000"],
   }),
   campaignId: z.string().optional().meta({
     title: "Campaign ID",
@@ -17,25 +17,25 @@ export const $LetterRequest = DomainBase("LetterRequest").extend({
     title: "Specification ID",
     description:
       "Reference to the letter specification which should be used to produce a letter pack for this request",
-    examples: ["spec-789", "letter-spec-2025"],
+    examples: ["1y3q9v1zzzz"],
   }),
   requestId: z.string().meta({
     title: "Request ID",
     description:
       "Identifier for the request which this letter request is part of",
-    examples: ["req-001", "request-abc-123"],
+    examples: ["1y3q9v1zzzy"],
   }),
   requestItemId: z.string().meta({
     title: "Request Item ID",
     description:
       "Identifier for the request item which this letter request is part of",
-    examples: ["item-002", "item-xyz-456"],
+    examples: ["1y3q9v1zzyx"],
   }),
   requestItemPlanId: z.string().meta({
     title: "Request Item Plan ID",
     description:
       "Identifier for the request item plan which associated with this letter request",
-    examples: ["plan-003", "plan-789-xyz"],
+    examples: ["1y3q9v1zzzz"],
   }),
   supplierId: z.string().meta({
     title: "Supplier ID",
