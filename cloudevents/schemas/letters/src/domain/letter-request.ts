@@ -6,13 +6,19 @@ export const $LetterRequest = DomainBase("LetterRequest").extend({
     title: "Client ID",
     description:
       "Identifier for the client which this letter is being sent on behalf of",
-    examples: ["987e6543-21c0-4d5b-8f9a-abcdef123456", "123e4567-e89b-12d3-a456-426614174000"],
+    examples: [
+      "987e6543-21c0-4d5b-8f9a-abcdef123456",
+      "123e4567-e89b-12d3-a456-426614174000",
+    ],
   }),
-  campaignId: z.string().optional().meta({
-    title: "Campaign ID",
-    description: "Identifier for the campaign which this letter is a part of",
-    examples: ["campaign-456", "flu-campaign-2025"],
-  }),
+  campaignId: z
+    .string()
+    .optional()
+    .meta({
+      title: "Campaign ID",
+      description: "Identifier for the campaign which this letter is a part of",
+      examples: ["campaign-456", "flu-campaign-2025"],
+    }),
   specificationId: z.string().meta({
     title: "Specification ID",
     description:
@@ -43,12 +49,14 @@ export const $LetterRequest = DomainBase("LetterRequest").extend({
       "Identifier for the supplier which should print and post the letter",
     examples: ["supplier-004", "supplier-abc"],
   }),
-  templateId: z.string().optional().meta({
-    title: "Template ID",
-    description:
-      "Identifier for the template used to compose this letter",
-    examples: ["template-005", "template-main"],
-  }),
+  templateId: z
+    .string()
+    .optional()
+    .meta({
+      title: "Template ID",
+      description: "Identifier for the template used to compose this letter",
+      examples: ["template-005", "template-main"],
+    }),
   pdfLocation: z.url().meta({
     title: "PDF Location",
     description:
