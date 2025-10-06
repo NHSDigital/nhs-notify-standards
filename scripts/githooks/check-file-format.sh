@@ -48,6 +48,7 @@ function main() {
   is-arg-true "${dry_run:-false}" && dry_run_opt="--dry-run"
 
   check=${check:-working-tree-changes}
+  echo Check mode: $check
   case $check in
     "all")
       filter="git ls-files"
