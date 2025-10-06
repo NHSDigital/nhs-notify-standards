@@ -41,8 +41,8 @@
       "description": "Identifier for the supplier which should print and post the letter",
       "type": "string"
     },
-    "s3Url": {
-      "title": "S3 URL",
+    "pdfLocation": {
+      "title": "PDF Location",
       "description": "Unsigned S3 URL where the generated PDF can be retrieved. It will be signed for access on retrieval",
       "type": "string",
       "format": "uri"
@@ -74,7 +74,7 @@
     "requestItemId",
     "requestItemPlanId",
     "supplierId",
-    "s3Url",
+    "pdfLocation",
     "sha256Hash",
     "createdAt",
     "pageCount"

@@ -36,8 +36,8 @@ export const $LetterRequest = DomainBase("LetterRequest").extend({
     description:
       "Identifier for the supplier which should print and post the letter",
   }),
-  s3Url: z.url().meta({
-    title: "S3 URL",
+  pdfLocation: z.url().meta({
+    title: "PDF Location",
     description:
       "Unsigned S3 URL where the generated PDF can be retrieved. It will be signed for access on retrieval",
   }),

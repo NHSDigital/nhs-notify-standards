@@ -4,10 +4,10 @@
     "createdAt": "2025-08-28T08:45:00.000Z",
     "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     "pageCount": 2,
+    "pdfLocation": "https://s3.eu-west-2.amazonaws.com/notify-letters-dev/letters/f47ac10b-58cc-4372-a567-0e02b2c3d479.pdf",
     "requestId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     "requestItemId": "9c858901-8a57-4791-81fe-4c455b099bc9",
     "requestItemPlanId": "9c858901-8a57-4791-81fe-4c455b099bc9",
-    "s3Url": "https://s3.eu-west-2.amazonaws.com/notify-letters-dev/letters/f47ac10b-58cc-4372-a567-0e02b2c3d479.pdf",
     "sha256Hash": "3a7bd3e2360a3d29eea436fcfb7e44c735d117c8f2f1d2d1e4f6e8f7e6e8f7e6",
     "specificationId": "standard_economy",
     "supplierId": "supplier_123"
