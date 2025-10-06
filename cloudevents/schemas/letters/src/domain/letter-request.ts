@@ -6,57 +6,75 @@ export const $LetterRequest = DomainBase("LetterRequest").extend({
     title: "Client ID",
     description:
       "Identifier for the client which this letter is being sent on behalf of",
+    examples: ["client-123", "nhs-client-001"],
   }),
   campaignId: z.string().optional().meta({
     title: "Campaign ID",
     description: "Identifier for the campaign which this letter is a part of",
+    examples: ["campaign-456", "flu-campaign-2025"],
   }),
   specificationId: z.string().meta({
     title: "Specification ID",
     description:
       "Reference to the letter specification which should be used to produce a letter pack for this request",
+    examples: ["spec-789", "letter-spec-2025"],
   }),
   requestId: z.string().meta({
     title: "Request ID",
     description:
       "Identifier for the request which this letter request is part of",
+    examples: ["req-001", "request-abc-123"],
   }),
   requestItemId: z.string().meta({
     title: "Request Item ID",
     description:
       "Identifier for the request item which this letter request is part of",
+    examples: ["item-002", "item-xyz-456"],
   }),
   requestItemPlanId: z.string().meta({
     title: "Request Item Plan ID",
     description:
       "Identifier for the request item plan which associated with this letter request",
+    examples: ["plan-003", "plan-789-xyz"],
   }),
   supplierId: z.string().meta({
     title: "Supplier ID",
     description:
       "Identifier for the supplier which should print and post the letter",
+    examples: ["supplier-004", "supplier-abc"],
   }),
   templateId: z.string().optional().meta({
     title: "Template ID",
     description:
       "Identifier for the template used to compose this letter",
+    examples: ["template-005", "template-main"],
   }),
   pdfLocation: z.url().meta({
     title: "PDF Location",
     description:
       "Unsigned S3 URL where the generated PDF can be retrieved. It will be signed for access on retrieval",
+    examples: [
+      "https://s3.amazonaws.com/bucket/letter-123.pdf",
+      "https://storage.nhs.uk/letters/letter-abc.pdf",
+    ],
   }),
   sha256Hash: z.string().meta({
     title: "SHA-256 Hash",
     description: "SHA-256 checksum of the PDF file",
+    examples: [
+      "3a7bd3e2360a3d80c4d4e8b1e3e5e6e7e8e9e0e1e2e3e4e5e6e7e8e9e0e1e2e3",
+      "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+    ],
   }),
   createdAt: z.iso.datetime().meta({
     title: "Created At",
     description: "Timestamp when the letter PDF was created",
+    examples: ["2025-10-06T12:34:56Z", "2025-01-01T00:00:00Z"],
   }),
   pageCount: z.number().meta({
     title: "Page Count",
     description: "Number of pages in the PDF document",
+    examples: [1, 3, 10],
   }),
 });
 
