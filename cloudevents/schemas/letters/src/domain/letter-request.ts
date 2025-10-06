@@ -7,7 +7,7 @@ export const $LetterRequest = DomainBase("LetterRequest").extend({
     description:
       "Identifier for the client which this letter is being sent on behalf of",
   }),
-  campaignId: z.string().meta({
+  campaignId: z.string().optional().meta({
     title: "Campaign ID",
     description: "Identifier for the campaign which this letter is a part of",
   }),
@@ -35,6 +35,11 @@ export const $LetterRequest = DomainBase("LetterRequest").extend({
     title: "Supplier ID",
     description:
       "Identifier for the supplier which should print and post the letter",
+  }),
+  templateId: z.string().optional().meta({
+    title: "Template ID",
+    description:
+      "Identifier for the template used to compose this letter",
   }),
   pdfLocation: z.url().meta({
     title: "PDF Location",

@@ -41,6 +41,11 @@
       "description": "Identifier for the supplier which should print and post the letter",
       "type": "string"
     },
+    "templateId": {
+      "title": "Template ID",
+      "description": "Identifier for the template used to compose this letter",
+      "type": "string"
+    },
     "pdfLocation": {
       "title": "PDF Location",
       "description": "Unsigned S3 URL where the generated PDF can be retrieved. It will be signed for access on retrieval",
@@ -68,7 +73,6 @@
   "required": [
     "id",
     "clientId",
-    "campaignId",
     "specificationId",
     "requestId",
     "requestItemId",
