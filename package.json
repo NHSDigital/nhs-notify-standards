@@ -60,7 +60,6 @@
   "version": "1.0.0",
   "workspaces": [
     "cloudevents",
-    "cloudevents/schemas/*",
-    "frontend"
+    "cloudevents/schemas/*"
   ]
 }

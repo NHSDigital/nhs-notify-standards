@@ -1,12 +1,12 @@
 {
   "author": "",
   "dependencies": {
+    "@asyncapi/bundler": "^0.6.4",
     "@nhsdigital/nhs-notify-event-schemas-common": "*",
     "zod": "^4.1.11"
   },
   "description": "Schemas for NHS Notify letters bounded context",
   "devDependencies": {
-    "@asyncapi/bundler": "^0.6.4",
     "@stoplight/spectral-cli": "^6.15.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.13.4",

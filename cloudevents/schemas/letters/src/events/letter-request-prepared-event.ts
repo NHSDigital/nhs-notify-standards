@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { $LetterRequest } from '../domain/letter-request';
 import { $EnvelopeProfile } from "@nhsdigital/nhs-notify-event-schemas-common/src/domain/envelope-profile";
+import { $LetterRequest } from "../domain/letter-request";
 
 const $LetterRequestPreparedEventMetadata = $EnvelopeProfile.safeExtend({
   type: z.literal("uk.nhs.notify.core.letter-request-prepared.v1"),
@@ -14,8 +14,10 @@ const $LetterRequestPreparedEventMetadata = $EnvelopeProfile.safeExtend({
 
 export const $LetterRequestPreparedEvent = $LetterRequestPreparedEventMetadata
   .safeExtend({
-    data: $LetterRequest
+    data: $LetterRequest,
   })
   .describe("LetterRequestPreparedEvent");
 
-export type LetterRequestPreparedEvent = z.infer<typeof $LetterRequestPreparedEvent>;
+export type LetterRequestPreparedEvent = z.infer<
+  typeof $LetterRequestPreparedEvent
+>;

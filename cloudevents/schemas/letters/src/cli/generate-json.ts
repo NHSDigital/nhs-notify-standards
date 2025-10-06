@@ -1,6 +1,6 @@
 import { z } from "zod";
 import * as fs from "node:fs";
-import { $LetterRequest } from '../domain/letter-request';
+import { $LetterRequest } from "../domain/letter-request";
 
 for (const [key, schema] of Object.entries({
   "letter-request": $LetterRequest,

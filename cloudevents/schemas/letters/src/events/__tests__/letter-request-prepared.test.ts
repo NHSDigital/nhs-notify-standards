@@ -18,12 +18,18 @@ describe("LetterRequestPreparedEvent validations", () => {
   it("should throw error for LetterRequestPrepared event with missing environment", () => {
     const json = readJson("letter-request-prepared-with-missing-fields.json");
 
-    expect(() => $LetterRequestPreparedEvent.parse(json)).toThrow("specificationId");
+    expect(() => $LetterRequestPreparedEvent.parse(json)).toThrow(
+      "specificationId",
+    );
   });
 
   it("should throw error for LetterRequestPrepared event with invalid major schema version", () => {
-    const json = readJson("letter-request-prepared-with-invalid-major-version.json");
+    const json = readJson(
+      "letter-request-prepared-with-invalid-major-version.json",
+    );
 
-    expect(() => $LetterRequestPreparedEvent.parse(json)).toThrow("dataschemaversion");
+    expect(() => $LetterRequestPreparedEvent.parse(json)).toThrow(
+      "dataschemaversion",
+    );
   });
 });
