@@ -19,6 +19,7 @@
     "bundle:prefer-child": "ts-node bundle-schema-prefer-child.ts",
     "docs": "node generate-docs.cjs",
     "generate": "ts-node generate-example.ts $@",
+    "lint": "echo \"No linting\" && exit 0",
     "test:unit": "echo \"No unit tests\" && exit 0"
   },
   "type": "module",
