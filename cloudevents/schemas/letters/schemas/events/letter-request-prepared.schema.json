@@ -157,9 +157,9 @@
           ],
           "type": "string"
         },
-        "pdfLocation": {
-          "title": "PDF Location",
-          "description": "Unsigned S3 URL where the generated PDF can be retrieved. It will be signed for access on retrieval",
+        "url": {
+          "title": "Letter URL",
+          "description": "Unsigned S3 URL where the generated letter body can be retrieved. It will be signed for access on retrieval.\n\nThe file will be a PDF file in A4 format suitable for printing.",
           "examples": [
             "https://s3.amazonaws.com/bucket/letter-123.pdf",
             "https://storage.nhs.uk/letters/letter-abc.pdf"
@@ -206,7 +206,7 @@
         "requestItemId",
         "requestItemPlanId",
         "supplierId",
-        "pdfLocation",
+        "url",
         "sha256Hash",
         "createdAt",
         "pageCount"

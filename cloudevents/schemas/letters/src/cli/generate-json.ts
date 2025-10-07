@@ -11,7 +11,7 @@ for (const [key, schema] of Object.entries({
     target: "openapi-3.0",
     reused: "ref",
   });
-  fs.mkdirSync("schemas/envelope", { recursive: true });
+  fs.mkdirSync("schemas/domain", { recursive: true });
   const file = `schemas/domain/${key}.schema.json`;
   fs.writeFileSync(file, JSON.stringify(json, null, 2));
   console.info(`Wrote JSON schema for ${key} to ${file}`);

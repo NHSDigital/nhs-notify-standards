@@ -59,10 +59,11 @@ export const $LetterRequest = DomainBase("LetterRequest")
         description: "Identifier for the template used to compose this letter",
         examples: ["template-005", "template-main"],
       }),
-    pdfLocation: z.url().meta({
-      title: "PDF Location",
-      description:
-        "Unsigned S3 URL where the generated PDF can be retrieved. It will be signed for access on retrieval",
+    url: z.url().meta({
+      title: "Letter URL",
+      description: `Unsigned S3 URL where the generated letter body can be retrieved. It will be signed for access on retrieval.
+
+The file will be a PDF file in A4 format suitable for printing.`,
       examples: [
         "https://s3.amazonaws.com/bucket/letter-123.pdf",
         "https://storage.nhs.uk/letters/letter-abc.pdf",
