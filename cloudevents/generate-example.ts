@@ -29,7 +29,7 @@ jsf.option({ alwaysFakeOptionals: true });
 
 async function main() {
   const args = process.argv.slice(2);
-  
+
   const [ schemaPathRaw, outputPath ] = args;
   if (!schemaPathRaw || !outputPath) {
     console.error("Usage: ts-node generate-example.ts [--plane=data|control] <schema.json> <output.json>");
@@ -61,13 +61,13 @@ async function main() {
     // 3. Generate IDs
     example.id = uuid();
 
-    // 4. Environment / instance / plane domain (align with new source pattern)
+    // 4. Environment / instance / plane envelope (align with new source pattern)
     const environments = ['production','staging','development','uat'];
     const env = randomChoice(environments);
     // instance: primary | secondary | dev-<digits>
     const instance = randomChoice(['primary','secondary','dev-' + (10000 + randomInt(90000)).toString()]);
     const plane = 'data-plane'; // default plane for example generation
-    // Attempt to infer domain token from schema patterns (fallback to 'ordering')
+    // Attempt to infer envelope token from schema patterns (fallback to 'ordering')
     const domainToken = 'ordering';
     example.source = `/nhs/england/notify/${env}/${instance}/${plane}/${domainToken}`;
 

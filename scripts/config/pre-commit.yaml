@@ -9,7 +9,10 @@ repos:
       - id: check-symlinks
       - id: detect-private-key
       - id: end-of-file-fixer
-        exclude: cloudevents/schemas/.*/domain/.*\.json
+        exclude: |
+          (?x)^(
+            cloudevents/schemas/.*/.*\.schema\.json
+          )$
       - id: forbid-new-submodules
       - id: mixed-line-ending
       - id: pretty-format-json
@@ -17,7 +20,7 @@ repos:
         exclude: |
           (?x)^(
             package-lock.json|
-            cloudevents/schemas/.*/domain/.*\.json
+            cloudevents/schemas/.*/.*\.schema\.json
           )$
     # -   id: ...
   - repo: local

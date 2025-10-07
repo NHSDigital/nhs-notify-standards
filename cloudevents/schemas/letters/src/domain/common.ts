@@ -9,7 +9,7 @@ export function DomainBase<T extends string>(
     .meta({
       title: `${type} ID`,
       description: `Unique identifier for the ${type}`,
-      examples: ["1y3q9v1zzzz_1y3q9v1zzzy"],
+      examples: ["1y3q9v1zzzz"],
     }) as z.core.$ZodBranded<z.ZodString, T>;
 
   return z.object({

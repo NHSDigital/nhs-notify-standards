@@ -30,5 +30,5 @@ indent_style = unset
 indent_size = unset
 generated_code = true
 
-[/cloudevents/**/domain/**.json]
-insert_final_newline = false
+[/cloudevents/schemas/**/*.schema.json]
+insert_final_newline = unset

@@ -4,13 +4,13 @@ import path from "node:path";
 
 async function main() {
   const baseDir = path.resolve(process.cwd(), "..");
-  const document = await bundle(["letters/schemas/notify-core.yaml"], {
+  const document = await bundle(["letters/schemas/letters.yaml"], {
     baseDir,
     xOrigin: true,
   });
   const bundledOutput = document.yml();
   if (bundledOutput) {
-    writeFileSync("dist/asyncapi/notify-core.yaml", bundledOutput); // the complete bundled AsyncAPI document
+    writeFileSync("dist/asyncapi/letters.yaml", bundledOutput); // the complete bundled AsyncAPI document
   }
 }
 

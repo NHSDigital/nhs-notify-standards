@@ -25,9 +25,7 @@ components:
         This indicates that a letter has been requested and assigned to a supplier for printing and posting.
       contentType: application/json
       payload:
-        allOf:
-          - $ref: '../../common/nhs-notify-profile.schema.json'
-          - $ref: './events/letter-request-prepared.yaml'
+        $ref: './events/letter-request-prepared.schema.json'
       examples:
         - payload:
             $ref: './examples/letter-request-prepared.json'

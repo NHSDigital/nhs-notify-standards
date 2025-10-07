@@ -14,7 +14,7 @@
     "templateId": "template_123"
   },
   "datacontenttype": "application/json",
-  "dataschema": "https://notify.nhs.uk/events/core/letter-request-prepared/1.0.0.json",
+  "dataschema": "https://notify.nhs.uk/events/letters/letter-request/prepared/1.0.0.json",
   "dataschemaversion": "1.0.0",
   "id": "23f1f09c-a555-4d9b-8405-0b33490bc920",
   "plane": "data",
@@ -26,5 +26,5 @@
   "subject": "customer/00f3b388-bbe9-41c9-9e76-052d37ee8988/request-item-plan/9c858901-8a57-4791-81fe-4c455b099bc9",
   "time": "2025-08-28T08:45:00.000Z",
   "traceparent": "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01",
-  "type": "uk.nhs.notify.core.letter-request-prepared.v1"
+  "type": "uk.nhs.notify.letters.letter-request.prepared.v1"
 }

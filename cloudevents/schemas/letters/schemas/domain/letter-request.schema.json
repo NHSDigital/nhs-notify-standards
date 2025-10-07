@@ -1,11 +1,13 @@
 {
+  "title": "Letter Request",
+  "description": "Details of a request to send a letter, including PDF location and metadata",
   "type": "object",
   "properties": {
     "id": {
       "title": "LetterRequest ID",
       "description": "Unique identifier for the LetterRequest",
       "examples": [
-        "1y3q9v1zzzz_1y3q9v1zzzy"
+        "1y3q9v1zzzz"
       ],
       "type": "string"
     },

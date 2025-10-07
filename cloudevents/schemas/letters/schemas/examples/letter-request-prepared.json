@@ -13,7 +13,7 @@
     "supplierId": "supplier_123"
   },
   "datacontenttype": "application/json",
-  "dataschema": "https://notify.nhs.uk/events/core/letter-request-prepared/1.0.0.json",
+  "dataschema": "https://notify.nhs.uk/events/letters/letter-request/prepared/1.0.0.json",
   "dataschemaversion": "1.0.0",
   "id": "23f1f09c-a555-4d9b-8405-0b33490bc920",
   "plane": "data",
@@ -21,5 +21,5 @@
   "specversion": "1.0",
   "subject": "00f3b388-bbe9-41c9-9e76-052d37ee8988",
   "time": "2025-08-28T08:45:00.000Z",
-  "type": "uk.nhs.notify.core.letter-request-prepared.v1"
+  "type": "uk.nhs.notify.letters.letter-request.prepared.v1"
 }
