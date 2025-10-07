@@ -23,7 +23,7 @@
   "severitytext": "INFO",
   "source": "/data-plane/letters/prod/render-pdf",
   "specversion": "1.0",
-  "subject": "customer/00f3b388-bbe9-41c9-9e76-052d37ee8988/request-item-plan/9c858901-8a57-4791-81fe-4c455b099bc9",
+  "subject": "customer/00f3b388-bbe9-41c9-9e76-052d37ee8988/request-item/9c858901-8a57-4791-81fe-4c455b099bc9/request-item-plan/9c858901-8a57-4791-81fe-4c455b099bc9",
   "time": "2025-08-28T08:45:00.000Z",
   "traceparent": "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01",
   "type": "uk.nhs.notify.letters.letter-request.prepared.v1"
