@@ -1,7 +1,7 @@
-import {writeFileSync} from "node:fs";
+import { writeFileSync } from "node:fs";
 import bundle from "@asyncapi/bundler";
 import path from "node:path";
-import {version as packageVersion} from "../../package.json";
+import { version as packageVersion } from "../../package.json";
 
 async function main() {
   const baseDir = path.resolve(process.cwd(), "..");
@@ -12,7 +12,7 @@ async function main() {
       xOrigin: true,
     },
   );
-  let info = document.json()?.info;
+  const info = document.json()?.info;
   if (info) {
     info.version = packageVersion;
   }
