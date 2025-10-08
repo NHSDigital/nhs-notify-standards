@@ -1,0 +1,29 @@
+# WARNING: Please, DO NOT edit this section of the file! It is maintained in the repository template.
+
+.scannerwork
+*cloc*report*.json
+*sbom*report*.json
+*vulnerabilities*report*.json
+*report*json.zip
+.version
+version.json
+*.code-workspace
+!project.code-workspace
+
+# Please, add your custom content below!
+
+# dependencies
+node_modules
+.node-version
+*/node_modules
+.next
+*/.next
+/.pnp
+.pnp.js
+/build
+dist
+.DS_Store
+.reports
+/.idea
+
+.env
