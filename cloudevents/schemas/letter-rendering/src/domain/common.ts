@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export function DomainBase<T extends string>(
   type: T,
-): z.ZodObject<{ id: z.core.$ZodBranded<z.ZodString, T> }> {
+): z.ZodObject<{ domainId: z.core.$ZodBranded<z.ZodString, T> }> {
   const idType = z
     .string()
     .brand<T>(type)
@@ -13,7 +13,7 @@ export function DomainBase<T extends string>(
     }) as z.core.$ZodBranded<z.ZodString, T>;
 
   return z.object({
-    id: idType,
+    domainId: idType,
   });
 }
 

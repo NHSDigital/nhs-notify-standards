@@ -2,11 +2,11 @@ import { z } from "zod";
 
 /**
  * Creates a field that references another entity by ID, inferring the type from the referenced
- * schema's id field.
+ * schema's domainId field.
  * This allows you to indicate relationships without embedding the full entity.
  *
  * @param schema - The Zod object schema representing the referenced entity
- * @param idFieldName - The name of the ID field in the referenced schema (default: 'id')
+ * @param idFieldName - The name of the ID field in the referenced schema (default: 'domainId')
  * @param entityName - Optional custom name for the referenced entity
  * @returns A Zod schema for the ID field with reference metadata, with the type inferred from
  * the referenced schema
@@ -15,18 +15,18 @@ import { z } from "zod";
  * import { z } from 'zod';
  * import { idRef } from './id-ref';
  *
- * const CustomerSchema = z.object({ id: z.string() });
+ * const CustomerSchema = z.object({ domainId: z.string() });
  * const OrderSchema = z.object({
- *   id: z.string(),
+ *   domainId: z.string(),
  *   customerId: idRef(CustomerSchema), // Inferred as ZodString
  * });
  */
 export function idRef<
   T extends z.ZodObject<Record<string, z.ZodTypeAny>>,
-  K extends keyof z.infer<T> & string = "id",
+  K extends keyof z.infer<T> & string = "domainId",
 >(schema: T, idFieldName?: K, entityName?: string): T["shape"][K] {
   const { shape } = schema;
-  const field = idFieldName ?? "id";
+  const field = idFieldName ?? "domainId";
 
   if (!(field in shape)) {
     throw new Error(`ID field '${field}' not found in schema`);

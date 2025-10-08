@@ -14,14 +14,16 @@ describe("LetterRequestPreparedEvent validations", () => {
 
     const event = $LetterRequestPreparedEvent.parse(json);
     expect(event).toBeDefined();
-    expect(event.type).toBe("uk.nhs.notify.letters.letter-request.prepared.v1");
+    expect(event.type).toBe(
+      "uk.nhs.notify.letter-rendering.letter-request.prepared.v1",
+    );
     expect(event.specversion).toBe("1.0");
-    expect(event.source).toBe("/data-plane/letters/prod/render-pdf");
+    expect(event.source).toBe("/data-plane/letter-rendering/prod/render-pdf");
     expect(event.id).toBe("23f1f09c-a555-4d9b-8405-0b33490bc920");
     expect(event.time).toBe("2025-08-28T08:45:00.000Z");
     expect(event.datacontenttype).toBe("application/json");
     expect(event.dataschema).toBe(
-      "https://notify.nhs.uk/events/letters/letter-request/prepared/1.0.0.json",
+      "https://notify.nhs.uk/events/letter-rendering/letter-request/prepared/1.0.0.json",
     );
     expect(event.dataschemaversion).toBe("1.0.0");
     expect(event.data).toBeDefined();

@@ -3,7 +3,7 @@
   "description": "Details of a request to send a letter, including PDF location and metadata",
   "type": "object",
   "properties": {
-    "id": {
+    "domainId": {
       "title": "LetterRequest ID",
       "description": "Unique identifier for the LetterRequest",
       "examples": [
@@ -121,7 +121,7 @@
     }
   },
   "required": [
-    "id",
+    "domainId",
     "clientId",
     "specificationId",
     "requestId",

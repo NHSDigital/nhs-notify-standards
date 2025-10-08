@@ -11,11 +11,13 @@
     "module": "commonjs",
     "noEmit": false,
     "outDir": "dist",
+    "resolveJsonModule": true,
     "target": "ES2022"
   },
   "extends": "../../../tsconfig.base.json",
   "include": [
     "src/**/*",
-    "jest.config.ts"
+    "jest.config.ts",
+    "package.json"
   ]
 }

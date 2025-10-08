@@ -48,7 +48,7 @@
     "type": {
       "type": "string",
       "enum": [
-        "uk.nhs.notify.letters.letter-request.prepared.v1"
+        "uk.nhs.notify.letter-rendering.letter-request.prepared.v1"
       ]
     },
     "time": {
@@ -74,14 +74,14 @@
     },
     "dataschema": {
       "type": "string",
-      "pattern": "^https:\\/\\/notify\\.nhs\\.uk\\/events\\/letters\\/letter-request\\/prepared\\/1.\\d+\\.\\d+\\.json$"
+      "pattern": "^https:\\/\\/notify\\.nhs\\.uk\\/events\\/letter-rendering\\/letter-request\\/prepared\\/1.\\d+\\.\\d+\\.json$"
     },
     "data": {
       "title": "Letter Request",
       "description": "Details of a request to send a letter, including PDF location and metadata",
       "type": "object",
       "properties": {
-        "id": {
+        "domainId": {
           "title": "LetterRequest ID",
           "description": "Unique identifier for the LetterRequest",
           "examples": [
@@ -199,7 +199,7 @@
         }
       },
       "required": [
-        "id",
+        "domainId",
         "clientId",
         "specificationId",
         "requestId",
