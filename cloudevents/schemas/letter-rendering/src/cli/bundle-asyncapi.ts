@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
 import bundle from "@asyncapi/bundler";
-import path from "node:path";
+import * as path from "node:path";
 import { version as packageVersion } from "../../package.json";
 
 async function main() {

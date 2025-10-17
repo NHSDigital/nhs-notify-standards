@@ -1,6 +1,7 @@
 {
   "exclude": [
-    "./dist/"
+    "node_modules",
+    "dist"
   ],
   "extends": "./tsconfig.json",
   "include": [

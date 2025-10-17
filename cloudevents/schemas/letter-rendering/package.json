@@ -23,7 +23,7 @@
   },
   "repository": "git@github.com:NHSDigital/nhs-notify-standards.git",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "dev": "ts-node src/index.ts",
     "gen:asyncapi": "mkdir -p ./dist/asyncapi && ts-node src/cli/bundle-asyncapi.ts",
     "gen:jsonschema": "ts-node src/cli/generate-json.ts",

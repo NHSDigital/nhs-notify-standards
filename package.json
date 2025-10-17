@@ -33,7 +33,7 @@
     "jest-html-reporter": "^4.3.0",
     "jest-mock-extended": "^4.0.0",
     "lcov-result-merger": "^5.0.1",
-    "ts-jest": "^29.3.0",
+    "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
     "typescript-eslint": "^8.44.1"
@@ -48,6 +48,8 @@
   "scripts": {
     "build": "npm run --workspace frontend build --if-present",
     "build-lambda": "npm run --workspaces build-lambda --if-present",
+    "deps:check": "npx syncpack list-mismatches",
+    "deps:sync": "npx syncpack fix-mismatches",
     "dev": "npm run --workspace frontend dev --if-present",
     "generate-dependencies": "npm run generate-dependencies --workspaces --if-present",
     "lint": "NODE_OPTIONS='--disable-warning=ExperimentalWarning' npm run --workspaces lint --if-present",

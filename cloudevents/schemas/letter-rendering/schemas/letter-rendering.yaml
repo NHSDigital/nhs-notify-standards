@@ -25,7 +25,7 @@ components:
         This indicates that a letter has been requested and assigned to a supplier for printing and posting.
       contentType: application/json
       payload:
-        $ref: './events/letter-request-prepared.schema.json'
+        $ref: './events/letter-request-prepared-event.schema.json'
       examples:
         - payload:
-            $ref: './examples/letter-request-prepared.json'
+            $ref: './examples/letter-request-prepared-event.json'
