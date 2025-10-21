@@ -1,22 +1,22 @@
 {
-  "name": "NHS Notify Standards Dev Container",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "22"
-    },
-    "ghcr.io/devcontainers-extra/features/asdf-package:1": {}
-},
-  "postCreateCommand": "npm install",
   "customizations": {
     "vscode": {
-      "settings": {},
       "extensions": [
         "dbaeumer.vscode-eslint",
         "ms-azuretools.vscode-docker",
         "ms-vscode.vscode-typescript-next"
-      ]
+      ],
+      "settings": {}
     }
   },
+  "features": {
+    "ghcr.io/devcontainers-extra/features/asdf-package:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  },
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "name": "NHS Notify Standards Dev Container",
+  "postCreateCommand": "npm install",
   "remoteUser": "vscode"
 }

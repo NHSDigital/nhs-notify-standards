@@ -9,9 +9,9 @@ repos:
       - id: check-symlinks
       - id: detect-private-key
       - id: end-of-file-fixer
-        exclude: |
-          (?x)^(
-            cloudevents/schemas/.*/.*\.schema\.json
+        exclude: ^(
+            cloudevents\/.*\.schema\.json |
+            fhir\/.*
           )$
       - id: forbid-new-submodules
       - id: mixed-line-ending
@@ -19,8 +19,9 @@ repos:
         args: ['--autofix']
         exclude: |
           (?x)^(
-            package-lock.json|
-            cloudevents/schemas/.*/.*\.schema\.json
+            (.*/)?package(-lock)?\.json |
+            cloudevents\/.*\.schema\.json |
+            fhir/.*
           )$
     # -   id: ...
   - repo: local
