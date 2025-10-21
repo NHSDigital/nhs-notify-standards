@@ -1,0 +1,142 @@
+{
+  "$id": "https://notify.nhs.uk/cloudevents/schemas/common/2025-10/nhs-notify-metadata.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NHS Notify Metadata",
+  "type": "object",
+  "description": "Notify Metadata",
+  "additionalProperties": false,
+  "required": [
+    "microserviceVersion",
+    "microservice",
+    "repositoryUrl",
+    "accountId",
+    "environment",
+    "instance",
+    "microserviceInstanceId",
+    "teamResponsible",
+    "notifyDomain"
+  ],
+  "$defs": {
+    "commitSha": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
+    "uuid": { "type": "string", "format": "uuid" },
+    "sha256prefixed": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  },
+  "properties": {
+    "teamResponsible": {
+      "type": "string",
+      "enum": ["Team 1","Team 2","Team 3"],
+      "description": "Owning engineering team accountable for this event's domain logic.",
+      "examples": ["Team 1"]
+    },
+    "notifyDomain": {
+      "type": "string",
+      "enum": ["Ordering","Delivering","Reporting","Enquiries"],
+      "description": "High-level business domain to which the event belongs.",
+      "examples": ["Ordering"]
+    },
+    "microservice":{
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[a-zA-Z0-9-]+$",
+      "description": "The name of the microservice generating the event, e.g. order-service",
+      "examples": ["order-service"]
+    },
+    "repositoryUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL of the repository containing the microservice codebase",
+      "examples": ["https://github.com/nhsdigital/nhs-notify-standards"]
+    },
+    "accountId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[a-zA-Z0-9-]+$",
+      "description": "The cloud account id where the microservice is deployed, for example the AWS account id",
+      "examples": ["123456789012", "my-cloud-account"]
+    },
+    "environment": {
+      "type": "string",
+      "enum": ["development", "testing", "staging", "production"],
+      "description": "The deployment environment of the microservice generating the event",
+      "examples": ["production"]
+    },
+    "instance":{
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[a-zA-Z0-9-]+$",
+      "description": "The specific instance name of the deployment, eg Notify Standard, or Notify Hot backup, or Notify Priority customers",
+      "examples": ["primary", "hot-backup", "priority-customers"]
+    },
+    "microserviceInstanceId":{
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[a-zA-Z0-9-]+$",
+      "description": "The specific instance id of the microservice generating the event, for example the lambda id or pod name",
+      "examples": ["lambda-1", "pod-1234" ]
+    },    
+    "microserviceVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+      "description": "Semantic version (SemVer 2.0.0) of the producing microservice at emit time. eg useful for blue green deployments.",
+      "examples": ["1.3.0", "2.0.0-beta.1"]
+    },
+    "commitSha": {
+      "$ref": "#/$defs/commitSha",
+      "description": "Git commit SHA of the producing build (7-40 hex).",
+      "examples": ["a1b2c3d", "d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2"]
+    },
+    "buildTimestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp the microservice build artifact was created (UTC).",
+      "examples": ["2025-10-03T10:15:30.123Z"]
+    },
+    "serviceTier": {
+      "type": "string",
+      "enum": ["critical","standard","experimental"],
+      "description": "Operational criticality tier of the service emitting the event.",
+      "examples": ["critical"]
+    },
+    "region": {
+      "type": "string",
+      "enum": ["eu-west-2","eu-west-1","eu-central-1"],
+      "description": "Deployment region / geography for the emitting instance.",
+      "examples": ["eu-west-2"]
+    },
+    "pseudonymisationLevel": {
+      "type": "string",
+      "enum": ["none","tokenised","pseudonymised","anonymised"],
+      "description": "Degree of personal data transformation applied to the domain payload prior to emission.",
+      "examples": ["none"]
+    },
+    "replayIndicator": {
+      "type": "boolean",
+      "description": "True if this event is a replay/backfill of a previously emitted event (not a new business occurrence).",
+      "examples": [false]
+    },
+    "originalEventId": {
+      "$ref": "#/$defs/uuid",
+      "description": "Identifier of the original event when replayIndicator=true.",
+      "examples": ["6f1c2a53-3d54-4a0a-9a0b-0e9ae2d4c111"]
+    },
+    "integrityHash": {
+      "$ref": "#/$defs/sha256prefixed",
+      "description": "Content integrity hash over the canonical notify-payload (stable key order), prefixed with 'sha256:'.",
+      "examples": ["sha256:3f786850e387550fdab836ed7e6dc881de23001b1a2b3c4d5e6f7a8b9c0d1e2f"]
+    },
+    "producedByType": {
+      "type": "string",
+      "enum": ["lambda", "container", "vm", "other"],
+      "description": "The type of compute resource producing the event.",
+      "examples": ["lambda"]
+    }
+  },
+  "examples": [
+    {"teamResponsible": "Team 1", "notifyDomain": "Ordering", "microservice": "order-service", "microserviceVersion": "1.3.0", "commitSha": "a1b2c3d", "buildTimestamp": "2025-10-03T10:15:30.123Z", "serviceTier": "critical", "region": "eu-west-2", "pseudonymisationLevel": "none", "replayIndicator": false, "integrityHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    {"teamResponsible": "Team 2", "notifyDomain": "Reporting", "microservice": "reporting-api", "microserviceVersion": "2.0.0", "commitSha": "deadbee", "serviceTier": "standard", "region": "eu-west-1", "pseudonymisationLevel": "pseudonymised", "replayIndicator": true, "originalEventId": "6f1c2a53-3d54-4a0a-9a0b-0e9ae2d4c111", "integrityHash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}
+  ]
+}

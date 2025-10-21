@@ -1,0 +1,61 @@
+{
+  "$id": "https://notify.nhs.uk/cloudevents/schemas/common/2025-10/nhs-notify-payload.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Notify Payload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "notify-data",
+    "notify-metadata"
+  ],
+  "properties": {
+    
+    "notify-data": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataPlane"
+        },
+        {
+          "$ref": "#/$defs/ControlPlane"
+        }
+      ],
+      "description": "Domain specific data attributes (variant: DataPlane | ControlPlane).",
+      "examples": [
+        {"nhsNumber": "9434765919"},
+        {"plane": "control", "action": "rotate-keys"}
+      ],
+      "$comment": "Union of two variant payload shapes. anyOf is used (instead of oneOf) because the two variants are currently placeholders and not mutually differentiable. Once DataPlane and ControlPlane gain distinct required properties or a discriminator, switch to oneOf (and optionally add a 'plane' enum property) to prevent ambiguous matches."
+    },
+    "notify-metadata": {
+      "$ref": "./nhs-notify-metadata.schema.json",
+      "description": "Standard metadata set shared across Notify events.",
+      "examples": [
+        {"teamResponsible": "Team 1", "notifyDomain": "Ordering", "microservice": "order-service"}
+      ]
+    }
+  },
+  "$defs": {
+    "DataPlane": {
+      "type": "object",
+      "description": "Placeholder for data-plane specific properties (extend in concrete event schemas).",
+      "$comment": "Add required fields here (e.g. 'plane': 'data') or domain-specific attributes; when distinct from ControlPlane, change notify-data.anyOf to oneOf to enforce exclusivity."
+  
+    },
+    "ControlPlane": {
+      "type": "object",
+      "description": "Placeholder for control-plane specific properties (extend in concrete event schemas).",
+      "$comment": "As with DataPlane, add identifying / required properties here (e.g. 'plane': 'control'). Ensure divergence for better validation and consumer code generation."
+    }
+  },
+  "examples": [
+    {
+      "notify-data": {"nhsNumber": "9434765919"},
+      "notify-metadata": {"teamResponsible": "Team 1", "notifyDomain": "Ordering", "microservice": "order-service"}
+    },
+    {
+      "notify-data": {"plane": "control", "action": "rotate-keys"},
+      "notify-metadata": {"teamResponsible": "Team 2", "notifyDomain": "Reporting",  "microservice": "reporting-api"}
+    }
+  ]
+}

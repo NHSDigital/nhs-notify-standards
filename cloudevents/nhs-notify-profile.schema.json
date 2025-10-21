@@ -1,5 +1,5 @@
 {
-  "$id": "https://notify.nhs.uk/schema/events/common/2025-10/nhs-notify-profile.schema.json",
+  "$id": "https://notify.nhs.uk/cloudevents/schemas/common/2025-10/nhs-notify-profile.schema.json",
   "$anchor": "nhs-notify-profile",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "NHS Notify CloudEvents Profile",
