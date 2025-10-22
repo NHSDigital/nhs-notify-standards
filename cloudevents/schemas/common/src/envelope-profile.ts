@@ -28,7 +28,7 @@ export const $EnvelopeProfile = z
     subject: z
       .string()
       .min(5)
-      .regex(/^[^\/]+(\/[^\/]+)*$/)
+      .regex(/^[^/]+(\/[^/]+)*$/)
       .meta({
         title: "Event Subject",
         description:
@@ -199,10 +199,7 @@ export const $EnvelopeProfile = z
   .superRefine((obj, ctx) => {
     if (
       /^\/data-plane/.test(obj.source) &&
-      // eslint-disable-next-line sonarjs/regex-complexity
-      !/^origin(\/[^\/]+)+$/.test(
-        obj.subject,
-      )
+      !/^origin(\/[^/]+)+$/.test(obj.subject)
     ) {
       ctx.addIssue({
         code: "custom",
