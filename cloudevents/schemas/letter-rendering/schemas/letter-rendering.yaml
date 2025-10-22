@@ -11,13 +11,13 @@ channels:
     title: Data Plane
     description: Events relating to message delivery
     messages:
-      letter-request-prepared:
-        $ref: '#/components/messages/letter-request-prepared'
+      letter-request-PREPARED:
+        $ref: '#/components/messages/letter-request-PREPARED'
 
 components:
   messages:
-    letter-request-prepared:
-      name: letter-request-prepared
+    letter-request-PREPARED:
+      name: letter-request-PREPARED
       title: Letter Request Prepared
       summary: |
         A letter request has been prepared for dispatch.
@@ -25,10 +25,10 @@ components:
         This indicates that a letter has been requested and assigned to a supplier for printing and posting.
       contentType: application/json
       payload:
-        $ref: './events/letter-request-prepared-event.schema.json'
+        $ref: './events/letter-request.PREPARED.schema.json'
       examples:
         - payload:
-            $ref: './examples/letter-request-prepared-event.json'
+            $ref: './examples/letter-request.PREPARED.json'
 
   schemas:
     letter-request:

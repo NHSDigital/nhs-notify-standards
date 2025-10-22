@@ -18,7 +18,7 @@ for (const [key, schema] of Object.entries({
 }
 
 for (const [key, schema] of Object.entries({
-  "letter-request-prepared-event": $LetterRequestPreparedEvent,
+  "letter-request.PREPARED": $LetterRequestPreparedEvent,
 })) {
   const json = z.toJSONSchema(schema, {
     io: "input",

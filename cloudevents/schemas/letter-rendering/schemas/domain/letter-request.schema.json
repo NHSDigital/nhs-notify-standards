@@ -119,6 +119,17 @@
       ],
       "type": "number"
     },
+    "status": {
+      "title": "Letter Request Status",
+      "description": "Current status of the letter request",
+      "examples": [
+        "PREPARED"
+      ],
+      "type": "string",
+      "enum": [
+        "PREPARED"
+      ]
+    },
     "urgency": {
       "title": "Urgency",
       "description": "Indicates whether the letter is standard or urgent",
@@ -145,6 +156,7 @@
     "sha256Hash",
     "createdAt",
     "pageCount",
+    "status",
     "urgency"
   ]
 }
