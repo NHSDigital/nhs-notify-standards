@@ -87,6 +87,11 @@ The file will be a PDF file in A4 format suitable for printing.`,
       description: "Number of pages in the PDF document",
       examples: [1, 3, 10],
     }),
+    urgency: z.enum(["STANDARD", "URGENT"]).meta({
+      title: "Urgency",
+      description: "Indicates whether the letter is standard or urgent",
+      examples: ["STANDARD", "URGENT"],
+    }),
   })
   .meta({
     title: "Letter Request",

@@ -196,6 +196,19 @@
             10
           ],
           "type": "number"
+        },
+        "urgency": {
+          "title": "Urgency",
+          "description": "Indicates whether the letter is standard or urgent",
+          "examples": [
+            "STANDARD",
+            "URGENT"
+          ],
+          "type": "string",
+          "enum": [
+            "STANDARD",
+            "URGENT"
+          ]
         }
       },
       "required": [
@@ -209,7 +222,8 @@
         "url",
         "sha256Hash",
         "createdAt",
-        "pageCount"
+        "pageCount",
+        "urgency"
       ]
     },
     "traceparent": {

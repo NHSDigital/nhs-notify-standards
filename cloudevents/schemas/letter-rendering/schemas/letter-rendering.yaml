@@ -29,3 +29,7 @@ components:
       examples:
         - payload:
             $ref: './examples/letter-request-prepared-event.json'
+
+  schemas:
+    letter-request:
+        $ref: './domain/letter-request.schema.json'
