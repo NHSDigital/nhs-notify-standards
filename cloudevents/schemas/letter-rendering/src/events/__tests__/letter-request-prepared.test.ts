@@ -13,21 +13,26 @@ describe("LetterRequestPreparedEvent validations", () => {
     const json = readJson("letter-request-prepared-valid.json");
 
     const event = $LetterRequestPreparedEvent.parse(json);
-    expect(event).toBeDefined();
-    expect(event.type).toBe(
-      "uk.nhs.notify.letter-rendering.letter-request.prepared.v1",
+    expect(event).toEqual(
+      expect.objectContaining({
+        type: "uk.nhs.notify.letter-rendering.letter-request.prepared.v1",
+        specversion: "1.0",
+        source: "/data-plane/letter-rendering/prod/render-pdf",
+        id: "23f1f09c-a555-4d9b-8405-0b33490bc920",
+        time: "2025-08-28T08:45:00.000Z",
+        datacontenttype: "application/json",
+        dataschema:
+          "https://notify.nhs.uk/events/letter-rendering/letter-request/prepared/1.0.0.json",
+        dataschemaversion: "1.0.0",
+        data: expect.objectContaining({
+          domainId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+          specificationId: "standard_economy",
+          templateId: "template_123",
+          requestId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+          urgency: "STANDARD"
+        }),
+      }),
     );
-    expect(event.specversion).toBe("1.0");
-    expect(event.source).toBe("/data-plane/letter-rendering/prod/render-pdf");
-    expect(event.id).toBe("23f1f09c-a555-4d9b-8405-0b33490bc920");
-    expect(event.time).toBe("2025-08-28T08:45:00.000Z");
-    expect(event.datacontenttype).toBe("application/json");
-    expect(event.dataschema).toBe(
-      "https://notify.nhs.uk/events/letter-rendering/letter-request/prepared/1.0.0.json",
-    );
-    expect(event.dataschemaversion).toBe("1.0.0");
-    expect(event.data).toBeDefined();
-    expect(event.data.requestId).toBe("f47ac10b-58cc-4372-a567-0e02b2c3d479");
   });
 
   it("should throw error for LetterRequestPrepared event with missing environment", () => {
