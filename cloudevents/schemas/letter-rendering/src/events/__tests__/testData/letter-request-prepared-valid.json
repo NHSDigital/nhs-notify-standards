@@ -12,6 +12,7 @@
     "specificationId": "standard_economy",
     "supplierId": "supplier_123",
     "templateId": "template_123",
+    "urgency": "STANDARD",
     "url": "https://s3.eu-west-2.amazonaws.com/notify-letters-dev/letters/f47ac10b-58cc-4372-a567-0e02b2c3d479.pdf"
   },
   "datacontenttype": "application/json",
