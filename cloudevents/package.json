@@ -1,14 +1,4 @@
 {
-  "name": "cloudevents-example-generator",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "generate-example.ts",
-  "scripts": {
-    "generate": "ts-node generate-example.ts $@",
-    "docs": "node generate-docs.cjs",
-  "bundle": "ts-node bundle-schema.ts",
-  "bundle:prefer-child": "ts-node bundle-schema-prefer-child.ts"
-  },
   "dependencies": {
     "ajv": "^8.0.0",
     "ajv-formats": "^3.0.1",
@@ -16,10 +6,22 @@
     "json-schema-ref-parser": "^9.0.9"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.13.4",
     "ajv-cli": "^5.0.0",
     "json-schema-static-docs": "^0.28.1",
-    "ts-node": "^10.0.0",
-    "typescript": "^5.0.0"
-  }
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "main": "generate-example.ts",
+  "name": "cloudevents-example-generator",
+  "scripts": {
+    "bundle": "ts-node bundle-schema.ts",
+    "bundle:prefer-child": "ts-node bundle-schema-prefer-child.ts",
+    "docs": "node generate-docs.cjs",
+    "generate": "ts-node generate-example.ts $@",
+    "lint": "echo \"No linting\" && exit 0",
+    "test:unit": "echo \"No unit tests\" && exit 0"
+  },
+  "type": "module",
+  "version": "1.0.0"
 }
