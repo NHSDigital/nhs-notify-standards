@@ -1,5 +1,5 @@
 {
-  "description": "LetterRequestPreparedEvent",
+  "title": "Letter Request Prepared Event",
   "type": "object",
   "properties": {
     "specversion": {
@@ -26,26 +26,25 @@
     },
     "source": {
       "title": "Event Source",
-      "description": "Logical event producer path starting /data-plane or /control-plane followed by lowercase segments.",
-      "examples": [
-        "/data-plane/ordering",
-        "/control-plane/audit"
-      ],
+      "description": "Logical event producer path within the letter-rendering domain",
       "type": "string",
-      "minLength": 12,
-      "pattern": "^\\/(data-plane|control-plane)(?:\\/[a-z0-9-]+)*$"
+      "pattern": "^\\/data-plane\\/letter-rendering(?:\\/.*)?$"
     },
     "subject": {
       "title": "Event Subject",
       "description": "Resource path (no leading slash) within the source made of segments separated by '/'.",
       "examples": [
-        "origin/920fca11-596a-4eca-9c47-99f624614658/order/769acdd4-6a47-496f-999f-76a6fd2c3959/item/4f5e17c0-ec57-4cee-9a86-14580cf5af7d"
+        "client/00f3b388-bbe9-41c9-9e76-052d37ee8988/letter-request/0o5Fs0EELR0fUjHjbCnEtdUwQe4_0o5Fs0EELR0fUjHjbCnEtdUwQe5"
       ],
       "type": "string",
-      "minLength": 5,
-      "pattern": "^[^\\/]+(\\/[^\\/]+)*$"
+      "pattern": "^client\\/[a-z0-9-]+\\/letter-request\\/[^/]+(?:\\/.*)?"
     },
     "type": {
+      "title": "Letter Request event type",
+      "description": "Event type using reverse-DNS style",
+      "examples": [
+        "uk.nhs.notify.letter-rendering.letter-request.PREPARED.v1"
+      ],
       "type": "string",
       "enum": [
         "uk.nhs.notify.letter-rendering.letter-request.PREPARED.v1"
@@ -73,8 +72,13 @@
       ]
     },
     "dataschema": {
+      "title": "Data Schema URI",
+      "description": "URI of a schema that describes the event data\n\nData schema version must match the major version indicated by the type",
+      "examples": [
+        "https://notify.nhs.uk/cloudevents/schemas/letter-rendering.letter-request.PREPARED.1.0.0.schema.json"
+      ],
       "type": "string",
-      "pattern": "^https:\\/\\/notify\\.nhs\\.uk\\/events\\/letter-rendering\\/letter-request\\/PREPARED\\/1.\\d+\\.\\d+\\.json$"
+      "pattern": "^https:\\/\\/notify\\.nhs\\.uk\\/cloudevents\\/schemas\\/letter-rendering\\/letter-request.PREPARED.1.\\d+\\.\\d+\\.schema.json$"
     },
     "data": {
       "title": "Letter Request",
@@ -367,6 +371,8 @@
       ]
     },
     "dataschemaversion": {
+      "title": "Data Schema Version",
+      "description": "Matches semantic versioning format with fixed major version (Not part of cloudevents spec?)",
       "type": "string",
       "pattern": "^1\\.\\d+\\.\\d+$"
     }

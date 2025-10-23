@@ -28,7 +28,7 @@ export const $EnvelopeProfile = z
     subject: z
       .string()
       .min(5)
-      .regex(/^[^/]+(\/[^/]+)*$/)
+      .regex(/^[^\/]+(\/[^\/]+)*$/)
       .meta({
         title: "Event Subject",
         description:
@@ -199,12 +199,15 @@ export const $EnvelopeProfile = z
   .superRefine((obj, ctx) => {
     if (
       /^\/data-plane/.test(obj.source) &&
-      !/^origin(\/[^/]+)+$/.test(obj.subject)
+      // eslint-disable-next-line sonarjs/regex-complexity
+      !/^[a-z0-9-]+(\/[^/]+)+$/.test(
+        obj.subject,
+      )
     ) {
       ctx.addIssue({
         code: "custom",
         message:
-          "For /data-plane sources, subject must start with origin/{id} and may have further segments separated by '/'.",
+          "For /data-plane sources, subject must start with a {namespace}/{id} and may have further segments separated by '/'.",
         path: ["subject"],
       });
     }

@@ -22,13 +22,13 @@ describe("LetterRequestPreparedEvent validations", () => {
         time: "2025-08-28T08:45:00.000Z",
         datacontenttype: "application/json",
         dataschema:
-          "https://notify.nhs.uk/events/letter-rendering/letter-request/PREPARED/1.0.0.json",
+          "https://notify.nhs.uk/cloudevents/schemas/letter-rendering/letter-request.PREPARED.1.0.0.schema.json",
         dataschemaversion: "1.0.0",
         data: expect.objectContaining({
-          domainId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+          domainId: "0o5Fs0EELR0fUjHjbCnEtdUwQe4_0o5Fs0EELR0fUjHjbCnEtdUwQe5",
           specificationId: "standard_economy",
           templateId: "template_123",
-          requestId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+          requestId: "0o5Fs0EELR0fUjHjbCnEtdUwQe3",
           urgency: "STANDARD",
         }),
       }),
