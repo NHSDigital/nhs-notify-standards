@@ -45,11 +45,26 @@ def generate_single_markdown_doc(yaml_doc_file, yaml_path, md_path):
         rel_path = yaml_doc_file.relative_to(yaml_path)
 
         # Create corresponding markdown path
-        md_file = md_path / rel_path.with_suffix('.md')
+        # Convert .doc.yaml to .md, or any other .yaml to .md
+        if str(rel_path).endswith('.doc.yaml'):
+            md_file = md_path / Path(str(rel_path).replace('.doc.yaml', '.md'))
+        else:
+            md_file = md_path / rel_path.with_suffix('.md')
         md_file.parent.mkdir(parents=True, exist_ok=True)
 
+        # Try to find the parent index.yaml to get parent title
+        parent_title = None
+        try:
+            index_yaml = yaml_doc_file.parent / "index.yaml"
+            if index_yaml.exists():
+                with open(index_yaml, 'r') as idx_f:
+                    index_data = yaml.safe_load(idx_f)
+                    parent_title = index_data.get('metadata', {}).get('title', None)
+        except Exception:
+            pass
+
         # Generate markdown content
-        content = generate_markdown_content(doc_data)
+        content = generate_markdown_content(doc_data, parent_title)
 
         with open(md_file, 'w') as f:
             f.write(content)
@@ -60,7 +75,8 @@ def generate_single_markdown_doc(yaml_doc_file, yaml_path, md_path):
         print(f"Error processing {yaml_doc_file}: {e}")
 
 
-def generate_markdown_content(doc_data):
+
+def generate_markdown_content(doc_data, parent_title=None):
     """Generate Markdown content from YAML documentation data."""
     metadata = doc_data.get('metadata', {})
     title = metadata.get('title', 'Untitled Schema')
@@ -69,6 +85,22 @@ def generate_markdown_content(doc_data):
     schema_version = metadata.get('schema_version', 'N/A')
     source_file = metadata.get('source_file', 'N/A')
     generated = metadata.get('generated', 'N/A')
+
+    # Convert parent title to short form if needed
+    if parent_title:
+        if parent_title.startswith('Schema Documentation - '):
+            parent_title = parent_title.replace('Schema Documentation - ', '', 1)
+        elif parent_title == 'Schema Documentation':
+            parent_title = 'Schemas'
+
+    # Check if this is a Bundle or Flattened variant schema
+    # If so, set parent to the base schema name instead
+    if title.endswith('.Bundle') or title.endswith('.Flattened'):
+        # Extract the base name (everything before .Bundle or .Flattened)
+        if title.endswith('.Bundle'):
+            parent_title = title[:-7]  # Remove '.Bundle'
+        elif title.endswith('.Flattened'):
+            parent_title = title[:-10]  # Remove '.Flattened'
 
     # Front matter with all documentation properties
     content = f"""---
@@ -79,6 +111,10 @@ schema_version: "{schema_version}"
 generated: "{generated}"
 source_file: "{source_file}"
 """
+
+    # Add parent if available
+    if parent_title:
+        content += f'parent: "{parent_title}"\n'
 
     # Add structured documentation data to front matter
     properties = doc_data.get('properties', {})
@@ -322,8 +358,15 @@ def generate_markdown_index_from_yaml(yaml_index_file, yaml_path, md_path):
         md_index_file = md_path / rel_path.with_suffix('.md')
         md_index_file.parent.mkdir(parents=True, exist_ok=True)
 
+        # Calculate the Jekyll root-relative path for this file
+        # This is needed for {% link %} tags which require paths from Jekyll root
+        try:
+            jekyll_relative_path = md_index_file.relative_to(md_path)
+        except ValueError:
+            jekyll_relative_path = rel_path.with_suffix('.md')
+
         # Generate markdown content
-        content = generate_index_markdown_content(index_data)
+        content = generate_index_markdown_content(index_data, jekyll_relative_path.parent)
 
         with open(md_index_file, 'w') as f:
             f.write(content)
@@ -334,32 +377,77 @@ def generate_markdown_index_from_yaml(yaml_index_file, yaml_path, md_path):
         print(f"Error processing index {yaml_index_file}: {e}")
 
 
-def generate_index_markdown_content(index_data):
-    """Generate Markdown content for an index from YAML index data."""
+def generate_index_markdown_content(index_data, current_dir_from_jekyll_root=Path('.')):
+    """Generate Markdown content for an index from YAML index data.
+
+    Args:
+        index_data: The index data from YAML
+        current_dir_from_jekyll_root: Path from Jekyll root to current directory
+    """
     metadata = index_data.get('metadata', {})
-    title = metadata.get('title', 'Schema Documentation')
+    original_title = metadata.get('title', 'Schema Documentation')
     description = metadata.get('description', 'Index of schema documentation')
     directory = metadata.get('directory', '.')
     generated = metadata.get('generated', 'N/A')
 
-    # Front matter
+    # Create a short title (without "Schema Documentation - " prefix)
+    short_title = original_title
+    if original_title.startswith('Schema Documentation - '):
+        short_title = original_title.replace('Schema Documentation - ', '', 1)
+    elif original_title == 'Schema Documentation':
+        short_title = 'Schemas'  # Root page gets a simpler title
+
+    # Check if this page has children (subdirectories or schemas)
+    schemas = index_data.get('schemas', [])
+    subdirectories = index_data.get('subdirectories', [])
+    has_children = len(schemas) > 0 or len(subdirectories) > 0
+
+    # Get parent information and convert parent title to short form
+    navigation = index_data.get('navigation', {})
+    parent = navigation.get('parent')
+    parent_title = None
+    if parent:
+        parent_title = parent.get('title', '')
+        # Convert parent title to short form too
+        if parent_title.startswith('Schema Documentation - '):
+            parent_title = parent_title.replace('Schema Documentation - ', '', 1)
+        elif parent_title == 'Schema Documentation':
+            parent_title = 'Schemas'
+
+    # Front matter - use short title for Jekyll's navigation
     content = f"""---
-title: "{title}"
+title: "{short_title}"
 description: "{description}"
 generated: "{generated}"
 directory: "{directory}"
----
+"""
+
+    # Add parent if it exists
+    if parent_title:
+        content += f'parent: "{parent_title}"\n'
+
+    # Add has_children if there are children
+    if has_children:
+        content += "has_children: true\n"
+
+    content += """---
 
 # {title}
 
-"""
+""".format(title=short_title)
 
     # Add parent navigation
     navigation = index_data.get('navigation', {})
     parent = navigation.get('parent')
     if parent:
-        parent_path = parent.get('path', '../index.md').replace('.yaml', '.md')
-        content += f"[↑ Parent Directory]({parent_path})\n\n"
+        parent_directory = parent.get('directory', '')
+        # Convert to Jekyll root-relative path
+        # Handle special cases: '.', 'root', or empty string all mean the root schemas directory
+        if parent_directory and parent_directory not in ['.', 'root', '']:
+            parent_link_path = f"schemas/{parent_directory}/index.md"
+        else:
+            parent_link_path = "schemas/index.md"
+        content += f"[↑ Parent Directory]({{% link {parent_link_path} %}})\n\n"
 
     # Add schemas in this directory
     schemas = index_data.get('schemas', [])
@@ -367,13 +455,12 @@ directory: "{directory}"
         content += "## Schemas in this directory\n\n"
         for schema in schemas:
             name = schema.get('name', 'Unknown')
-            relative_doc_path = schema.get('relative_doc_path', schema.get('doc_file', ''))
-            if relative_doc_path:
-                # Convert .doc.yaml to .md
-                md_path = relative_doc_path.replace('.doc.yaml', '.md')
-                content += f"- [{name}]({md_path})\n"
+            # Construct Jekyll root-relative path
+            if str(current_dir_from_jekyll_root) != '.':
+                doc_link_path = f"schemas/{current_dir_from_jekyll_root}/{name}.schema.md"
             else:
-                content += f"- {name} (no documentation)\n"
+                doc_link_path = f"schemas/{name}.schema.md"
+            content += f"- [{name}]({{% link {doc_link_path} %}})\n"
         content += "\n"
 
     # Add subdirectories
@@ -382,8 +469,13 @@ directory: "{directory}"
         content += "## Subdirectories\n\n"
         for subdir in subdirectories:
             name = subdir.get('name', 'Unknown')
-            path = subdir.get('path', '').replace('.yaml', '.md')
-            content += f"- [{name}/]({path})\n"
+            subdir_directory = subdir.get('directory', '')
+            # Convert to Jekyll root-relative path
+            if subdir_directory:
+                subdir_link_path = f"schemas/{subdir_directory}/index.md"
+            else:
+                subdir_link_path = f"schemas/{name}/index.md"
+            content += f"- [{name}/]({{% link {subdir_link_path} %}})\n"
         content += "\n"
 
     # Add generation info
